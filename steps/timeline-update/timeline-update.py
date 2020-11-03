@@ -6,7 +6,7 @@ from relay_sdk import Interface, Dynamic as D
 
 relay = Interface()
 
-apiKey = relay.get(D.connection.apiKey),
+apiKey = relay.get(D.apiKey),
 incidentID = relay.get(D.incidentID)
 message = relay.get(D.message)
 
