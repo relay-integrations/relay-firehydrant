@@ -1,34 +1,30 @@
-# Step metadata example - full description at:
-# https://github.com/puppetlabs/relay-rfcs/blob/master/content/0006-integration-layout/rfc.md#common-metadata
 apiVersion: integration/v1
 kind: Step
-name: template
+name: timeline-update
 version: 1
-summary: Step template
+summary: Update a FireHydrant.io incident timeline from Relay
 
 description: |
-  This is a template for a simple step.
-
-build:
-  apiVersion: build/v1
-  kind: Docker
+  This step will post information back into the FireHydrant.io
+  incident response service from a Relay workflow. It requires
+  the UUID of the incident as a parameter to associate the
+  update correctly, as well as your apiKey (as a Secret) to
+  authenticate against the FireHydrant REST API.
 
 publish:
-  repository: myregistryuser/step-template
+  repository: relaysh/firehydrant-step-timeline-update
 
 # optional list of examples; each one can be a Step or a complete Workflow
 examples:
-- summary: An example workflow using this step
+- summary: Update an incident timeline
   apiVersion: v1
-  kind: Workflow
-  parameters:
-    message:
-      description: The message to emit
-      default: Hello, world
-  steps:
-    image: relaysh/template
-    spec:
-      message: !Parameter message
+  kind: Step
+  name: timeline-update
+  image: relaysh/firehydrant-step-timeline-update
+  spec:
+    apiKey: !Secret apiKey
+    incidentID: !Secret incidentID
+    message: "Relay ran a workflow and fixed the problem"
 
 schemas:
   spec:
@@ -37,19 +33,10 @@ schemas:
     properties:
       message:
         type: string
-        description: The message to emit from the step
-   # alternately, source an external json file
-   # spec:
-   #   source: file
-   #   file: spec.schema.json
- outputs:
-   $schema: http://json-schema.org/draft-07/schema#
-    type: object
-    properties:
-      output:
+        description: The message to post to the API
+      apiKey:
         type: string
-        description: The message that would be emitted
-   # external files are also supported for outputs
-   # spec:
-   #   source: file
-   #   file: outputs.schema.json
+        description: An API token from FireHydrant Bot Users setup
+      incidentID:
+        type: string
+        description: The internal UUID of the Incident to update
