@@ -1,15 +1,15 @@
 apiVersion: integration/v1
 kind: Integration
-name: template
+name: relay-firehydrant
 channel: stable
 version: v20200514
-summary: Integration template
+summary: FireHydrant.io integration
 license: Apache-2.0
-homepage: https://github.com/relay-integrations/template
-source: https://github.com/relay-integrations/template
+homepage: https://relay.sh/integrations/firehydrant
+source: https://github.com/relay-integrations/relay-firehydrant
 
 description: |
-  This is a template for creating a Relay Integration repository.
+  This integration connects Relay with FireHydrant.io for incident response
 
 owner:
   name: Puppet, Inc.
@@ -17,5 +17,5 @@ owner:
   url: https://puppet.com
 
 tags:
-- template
 - relay integration
+- incident response
