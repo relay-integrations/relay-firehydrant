@@ -16,7 +16,7 @@ eventPayload = {
 
 headers = { "Authorization": apiKey }
 
-url = 'https://api.firehydrant.io/v1/incidents/' + incidentID + "/notes"
+url = 'https://api.firehydrant.io/v1/incidents/' + str(incidentID) + "/notes"
 
 r = requests.post(url, headers=headers, json=eventPayload)
 
